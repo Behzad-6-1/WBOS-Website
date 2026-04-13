@@ -44,18 +44,16 @@
 			display: none;
 			position: fixed;
 			top: 0;
-			left: 0;
-			right: 0;
 			z-index: 9999;
 			background: #2c3e50;
 			color: #fff;
 			box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+			/* left/width/cell widths set dynamically by JS */
 		}
 		#sticky-matrix-header.visible {
 			display: flex;
 		}
 		#sticky-matrix-header .sh-cell {
-			flex: 1;
 			padding: 13px 10px;
 			font-size: 0.82em;
 			font-weight: 700;
@@ -64,11 +62,13 @@
 			text-align: center;
 			border-right: 1px solid rgba(255,255,255,0.12);
 			color: #fff;
+			overflow: hidden;
+			white-space: nowrap;
+			box-sizing: border-box;
 		}
 		#sticky-matrix-header .sh-cell:first-child {
-			flex: 1.95;
 			text-align: left;
-			padding-left: 18px;
+			padding-left: 14px;
 		}
 		#sticky-matrix-header .sh-cell:last-child {
 			border-right: none;
@@ -555,15 +555,39 @@
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
 
-			// ── Sticky header logic ──
+			// ── Sticky header logic — aligned to actual table columns ──
 			var stickyBar = document.getElementById('sticky-matrix-header');
 			var table     = document.getElementById('feature-matrix');
+			var cells     = stickyBar ? stickyBar.querySelectorAll('.sh-cell') : [];
+
+			function alignStickyHeader() {
+				if (!table || !stickyBar) return;
+				// Measure the real <th> cells in the table header
+				var ths = table.querySelectorAll('thead th');
+				if (!ths.length) return;
+
+				var tableRect = table.getBoundingClientRect();
+				var scrollX   = window.scrollX || window.pageXOffset;
+
+				// Position the bar exactly over the table
+				stickyBar.style.left  = (tableRect.left + scrollX) + 'px';
+				stickyBar.style.width = tableRect.width + 'px';
+
+				// Size each sticky cell to match the real th width
+				ths.forEach(function (th, i) {
+					if (cells[i]) {
+						cells[i].style.width     = th.offsetWidth + 'px';
+						cells[i].style.minWidth  = th.offsetWidth + 'px';
+						cells[i].style.maxWidth  = th.offsetWidth + 'px';
+					}
+				});
+			}
 
 			function updateStickyHeader() {
 				if (!table || !stickyBar) return;
 				var rect = table.getBoundingClientRect();
-				// Show when top of table scrolls above viewport, bottom still visible
 				if (rect.top < 0 && rect.bottom > 50) {
+					alignStickyHeader();
 					stickyBar.classList.add('visible');
 				} else {
 					stickyBar.classList.remove('visible');
@@ -571,7 +595,15 @@
 			}
 
 			window.addEventListener('scroll', updateStickyHeader);
-			updateStickyHeader();
+			window.addEventListener('resize', function () {
+				alignStickyHeader();
+				updateStickyHeader();
+			});
+			// Run once after layout settles
+			setTimeout(function () {
+				alignStickyHeader();
+				updateStickyHeader();
+			}, 100);
 
 			// ── Tooltip logic ──
 			var tooltip = document.createElement('div');
@@ -615,3 +647,4 @@
 
 </body>
 </html>
+
