@@ -30,16 +30,30 @@
 			text-align: center;
 		}
 
-		/* Real thead — hidden visually but keeps column widths */
+		/* Visible thead — shows at the top of the table normally */
 		table.feature-matrix thead tr {
-			visibility: hidden;
+			background: #2c3e50;
+			color: #fff;
 		}
 		table.feature-matrix thead th {
 			padding: 14px 10px;
 			font-size: 0.85em;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+			color: #fff !important;
+			text-align: center;
+			border-right: 1px solid rgba(255,255,255,0.12);
+		}
+		table.feature-matrix thead th:first-child {
+			text-align: left;
+			padding-left: 14px;
+		}
+		table.feature-matrix thead th:last-child {
+			border-right: none;
 		}
 
-		/* ── FLOATING STICKY HEADER ── */
+		/* ── FLOATING STICKY HEADER ── appears when original header scrolls off screen */
 		#sticky-matrix-header {
 			display: none;
 			position: fixed;
@@ -48,7 +62,6 @@
 			background: #2c3e50;
 			color: #fff;
 			box-shadow: 0 2px 8px rgba(0,0,0,0.35);
-			/* left/width/cell widths set dynamically by JS */
 		}
 		#sticky-matrix-header.visible {
 			display: flex;
@@ -166,7 +179,7 @@
 <body class="is-preload">
 	<div id="page-wrapper">
 
-		<!-- Floating sticky column header bar -->
+		<!-- Floating sticky column header bar — shown when table header scrolls off screen -->
 		<div id="sticky-matrix-header">
 			<div class="sh-cell">Feature</div>
 			<div class="sh-cell">WBOS Essential</div>
@@ -555,38 +568,40 @@
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
 
-			// ── Sticky header logic — aligned to actual table columns ──
+			// ── Sticky header: appears when the real thead scrolls off the top ──
 			var stickyBar = document.getElementById('sticky-matrix-header');
 			var table     = document.getElementById('feature-matrix');
+			var thead     = table ? table.querySelector('thead') : null;
 			var cells     = stickyBar ? stickyBar.querySelectorAll('.sh-cell') : [];
 
 			function alignStickyHeader() {
 				if (!table || !stickyBar) return;
-				// Measure the real <th> cells in the table header
-				var ths = table.querySelectorAll('thead th');
-				if (!ths.length) return;
-
 				var tableRect = table.getBoundingClientRect();
 				var scrollX   = window.scrollX || window.pageXOffset;
 
-				// Position the bar exactly over the table
+				// Position bar exactly over the table horizontally
 				stickyBar.style.left  = (tableRect.left + scrollX) + 'px';
 				stickyBar.style.width = tableRect.width + 'px';
 
-				// Size each sticky cell to match the real th width
+				// Match each cell width to the real <th>
+				var ths = table.querySelectorAll('thead th');
 				ths.forEach(function (th, i) {
 					if (cells[i]) {
-						cells[i].style.width     = th.offsetWidth + 'px';
-						cells[i].style.minWidth  = th.offsetWidth + 'px';
-						cells[i].style.maxWidth  = th.offsetWidth + 'px';
+						cells[i].style.width    = th.offsetWidth + 'px';
+						cells[i].style.minWidth = th.offsetWidth + 'px';
+						cells[i].style.maxWidth = th.offsetWidth + 'px';
 					}
 				});
 			}
 
 			function updateStickyHeader() {
-				if (!table || !stickyBar) return;
-				var rect = table.getBoundingClientRect();
-				if (rect.top < 0 && rect.bottom > 50) {
+				if (!table || !stickyBar || !thead) return;
+				var theadRect = thead.getBoundingClientRect();
+				var tableRect = table.getBoundingClientRect();
+
+				// Show sticky bar when the real header row has scrolled off the top
+				// AND the table bottom is still in view
+				if (theadRect.bottom < 0 && tableRect.bottom > 50) {
 					alignStickyHeader();
 					stickyBar.classList.add('visible');
 				} else {
@@ -599,11 +614,12 @@
 				alignStickyHeader();
 				updateStickyHeader();
 			});
+
 			// Run once after layout settles
 			setTimeout(function () {
 				alignStickyHeader();
 				updateStickyHeader();
-			}, 100);
+			}, 200);
 
 			// ── Tooltip logic ──
 			var tooltip = document.createElement('div');
