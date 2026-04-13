@@ -9,9 +9,7 @@
 	<style>
 		/* ── Feature Matrix Table ── */
 		.feature-matrix-wrapper {
-		    overflow-x: auto;
-		    overflow-y: visible;
-		    position: relative;
+			position: relative;
 		}
 
 		table.feature-matrix {
@@ -32,38 +30,60 @@
 			text-align: center;
 		}
 
-		/* Sticky header on the actual <thead> */
+		/* Real thead — hidden visually but keeps column widths */
 		table.feature-matrix thead tr {
-		    position: sticky !important;
-		    top: 0 !important;
-		    z-index: 100;
-		    background: #2c3e50 !important;
-		    color: #fff !important;
+			visibility: hidden;
 		}
-
 		table.feature-matrix thead th {
 			padding: 14px 10px;
 			font-size: 0.85em;
-			font-weight: 600;
+		}
+
+		/* ── FLOATING STICKY HEADER ── */
+		#sticky-matrix-header {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 9999;
+			background: #2c3e50;
+			color: #fff;
+			box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+		}
+		#sticky-matrix-header.visible {
+			display: flex;
+		}
+		#sticky-matrix-header .sh-cell {
+			flex: 1;
+			padding: 13px 10px;
+			font-size: 0.82em;
+			font-weight: 700;
 			text-transform: uppercase;
 			letter-spacing: 0.05em;
-			border-right: 1px solid rgba(255,255,255,0.1);
-			white-space: nowrap;
+			text-align: center;
+			border-right: 1px solid rgba(255,255,255,0.12);
+			color: #fff;
 		}
-		table.feature-matrix thead th:last-child {
+		#sticky-matrix-header .sh-cell:first-child {
+			flex: 1.95;
+			text-align: left;
+			padding-left: 18px;
+		}
+		#sticky-matrix-header .sh-cell:last-child {
 			border-right: none;
 		}
 
 		/* Group header rows */
 		tr.feature-group-row td {
-		    background: #2c3e50 !important;
-		    color: #ffffff !important;
-		    font-weight: 700;
-		    font-size: 0.8em;
-		    text-transform: uppercase;
-		    letter-spacing: 0.08em;
-		    padding: 10px 14px;
-		    border-top: 3px solid #1a252f;
+			background: #2c3e50 !important;
+			color: #ffffff !important;
+			font-weight: 700 !important;
+			font-size: 0.8em;
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			padding: 10px 14px;
+			border-top: 3px solid #1a252f;
 		}
 
 		/* Feature name cells */
@@ -72,10 +92,9 @@
 			font-size: 0.9em;
 			vertical-align: middle;
 			border-bottom: 1px solid #e8ecf0;
-			display: table-cell;
 		}
 
-		/* Tick cells — perfectly centred */
+		/* Tick cells */
 		td.feature-cell {
 			padding: 12px 10px;
 			text-align: center;
@@ -84,7 +103,7 @@
 			border-left: 1px solid #e8ecf0;
 		}
 
-		/* The tick icon itself */
+		/* The tick icon */
 		td.feature-cell .feature-tick {
 			display: inline-block;
 			color: #27ae60;
@@ -127,7 +146,7 @@
 		.help-tooltip {
 			display: none;
 			position: absolute;
-			z-index: 9999;
+			z-index: 99999;
 			max-width: 280px;
 			background: #2c3e50;
 			color: #fff;
@@ -141,16 +160,21 @@
 		.help-tooltip.visible {
 			display: block;
 		}
-
-		/* Hide the old fixed header bar — we use native sticky thead now */
-		#matrix-header-fixed {
-			display: none !important;
-		}
 	</style>
 </head>
 
 <body class="is-preload">
 	<div id="page-wrapper">
+
+		<!-- Floating sticky column header bar -->
+		<div id="sticky-matrix-header">
+			<div class="sh-cell">Feature</div>
+			<div class="sh-cell">WBOS Essential</div>
+			<div class="sh-cell">WBOS Plus</div>
+			<div class="sh-cell">WBOS Professional</div>
+			<div class="sh-cell">WBOS Premium</div>
+			<div class="sh-cell">WBOS Enterprise</div>
+		</div>
 
 		<!-- Header -->
 		<header id="header">
@@ -161,7 +185,6 @@
 						 style="max-width: 90px; width: 100%; height: auto; display: block; margin: 0 auto;" />
 				</a>
 			</h1>
-
 			<nav id="nav">
 				<ul>
 					<li><a href="index.html">Home</a></li>
@@ -184,8 +207,6 @@
 				</header>
 				<div class="row gtr-150">
 					<div class="col-4 col-12-medium">
-
-						<!-- Sidebar -->
 						<section id="sidebar">
 							<section>
 								<h3>Preset builder</h3>
@@ -212,11 +233,8 @@
 								</footer>
 							</section>
 						</section>
-
 					</div>
 					<div class="col-8 col-12-medium imp-medium">
-
-						<!-- Content -->
 						<section id="content">
 							<a href="#" class="image fit"><img src="images/pic10.jpg" alt="" /></a>
 							<h3>Core weighbridge control layer</h3>
@@ -250,12 +268,10 @@
 							</ul>
 							<p>WBOS strengthens your existing ecosystem rather than replacing it.</p>
 						</section>
-
 					</div>
 				</div>
 			</div>
 		</div>
-
 
 		<section id="modules-matrix" class="wrapper style1 special">
 			<div class="container">
@@ -536,19 +552,38 @@
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
 
-	<!-- Tooltip script — runs after DOM is ready -->
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
-			const tooltip = document.createElement('div');
+
+			// ── Sticky header logic ──
+			var stickyBar = document.getElementById('sticky-matrix-header');
+			var table     = document.getElementById('feature-matrix');
+
+			function updateStickyHeader() {
+				if (!table || !stickyBar) return;
+				var rect = table.getBoundingClientRect();
+				// Show when top of table scrolls above viewport, bottom still visible
+				if (rect.top < 0 && rect.bottom > 50) {
+					stickyBar.classList.add('visible');
+				} else {
+					stickyBar.classList.remove('visible');
+				}
+			}
+
+			window.addEventListener('scroll', updateStickyHeader);
+			updateStickyHeader();
+
+			// ── Tooltip logic ──
+			var tooltip = document.createElement('div');
 			tooltip.className = 'help-tooltip';
 			document.body.appendChild(tooltip);
 
-			let currentBtn = null;
+			var currentBtn = null;
 
 			document.querySelectorAll('.help-tip').forEach(function (btn) {
 				btn.addEventListener('click', function (e) {
 					e.stopPropagation();
-					const desc = btn.getAttribute('data-desc') || '';
+					var desc = btn.getAttribute('data-desc') || '';
 					if (!desc) return;
 
 					if (tooltip.classList.contains('visible') && currentBtn === btn) {
@@ -559,9 +594,9 @@
 
 					tooltip.textContent = desc;
 
-					const rect = btn.getBoundingClientRect();
-					const scrollY = window.scrollY || window.pageYOffset;
-					const scrollX = window.scrollX || window.pageXOffset;
+					var rect    = btn.getBoundingClientRect();
+					var scrollY = window.scrollY || window.pageYOffset;
+					var scrollX = window.scrollX || window.pageXOffset;
 
 					tooltip.style.top  = (rect.top  + scrollY - 6)  + 'px';
 					tooltip.style.left = (rect.right + scrollX + 14) + 'px';
