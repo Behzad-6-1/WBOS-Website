@@ -51,7 +51,7 @@ module.exports = async function (context, req) {
     const mailOptions = {
         from: `"WBOS Website" <${process.env.SMTP_USER}>`,
         to: 'behzad0601@gmail.com',
-        replyTo: email,
+        
         subject: `WBOS Contact Form – ${enquiry || 'General Enquiry'} from ${company || name}`,
         html: `
             <h2>New Contact Form Submission</h2>
