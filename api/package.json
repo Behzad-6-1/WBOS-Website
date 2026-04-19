@@ -1,0 +1,9 @@
+{
+    "name": "wbos-api",
+    "version": "1.0.0",
+    "description": "WBOS contact form API",
+    "main": "index.js",
+    "dependencies": {
+        "nodemailer": "^6.9.7"
+    }
+}
