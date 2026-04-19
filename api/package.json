@@ -2,7 +2,9 @@
     "name": "wbos-api",
     "version": "1.0.0",
     "description": "WBOS contact form API",
-    "main": "index.js",
+    "engines": {
+        "node": "~18"
+    },
     "dependencies": {
         "nodemailer": "^6.9.7"
     }
