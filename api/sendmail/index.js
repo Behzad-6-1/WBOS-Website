@@ -1,28 +1,43 @@
 const nodemailer = require('nodemailer');
 
 module.exports = async function (context, req) {
-    // Allow requests from your website
+
+    // Always set CORS headers
     context.res = {
         headers: {
-            'Access-Control-Allow-Origin': 'https://www.logixis.com.au',
-            'Access-Control-Allow-Methods': 'POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type'
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Content-Type': 'application/json'
         }
     };
 
     // Handle preflight OPTIONS request
     if (req.method === 'OPTIONS') {
         context.res.status = 204;
+        context.res.body = '';
         return;
     }
 
-    // Get form data from request body
-    const { company, name, phone, email, state, enquiry, message } = req.body;
+    // Handle GET request — just confirm function is alive
+    if (req.method === 'GET') {
+        context.res.status = 200;
+        context.res.body = JSON.stringify({ 
+            status: 'ok', 
+            smtp_user: process.env.SMTP_USER ? 'set' : 'NOT SET',
+            smtp_pass: process.env.SMTP_PASSWORD ? 'set' : 'NOT SET'
+        });
+        return;
+    }
+
+    // POST — send the email
+    const body = req.body || {};
+    const { company, name, phone, email, state, enquiry, message } = body;
 
     // Basic validation
     if (!name || !email || !message) {
         context.res.status = 400;
-        context.res.body = { error: 'Name, email and message are required.' };
+        context.res.body = JSON.stringify({ error: 'Name, email and message are required.' });
         return;
     }
 
@@ -30,13 +45,13 @@ module.exports = async function (context, req) {
     const transporter = nodemailer.createTransport({
         host: 'smtp.office365.com',
         port: 587,
-        secure: false, // STARTTLS
+        secure: false,
         auth: {
-            user: process.env.SMTP_USER,     // shane@logixis.com.au (set in Azure config)
-            pass: process.env.SMTP_PASSWORD  // Shane's password (set in Azure config)
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASSWORD
         },
         tls: {
-            ciphers: 'SSLv3'
+            rejectUnauthorized: false
         }
     });
 
@@ -91,10 +106,14 @@ module.exports = async function (context, req) {
     try {
         await transporter.sendMail(mailOptions);
         context.res.status = 200;
-        context.res.body = { success: true };
+        context.res.body = JSON.stringify({ success: true });
     } catch (error) {
         context.log.error('Email send error:', error);
         context.res.status = 500;
-        context.res.body = { error: 'Failed to send email. Please try again.' };
+        context.res.body = JSON.stringify({ 
+            error: 'Failed to send email.',
+            detail: error.message,
+            code: error.code
+        });
     }
 };
