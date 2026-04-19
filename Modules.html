@@ -7,34 +7,19 @@
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	<style>
-		/* ── Feature Matrix Table ── */
-		.feature-matrix-wrapper {
-			position: relative;
-		}
+		.feature-matrix-wrapper { position: relative; }
 
 		table.feature-matrix {
 			width: 100%;
 			border-collapse: collapse;
 			table-layout: fixed;
 		}
-
-		/* Column widths */
 		table.feature-matrix th:first-child,
-		table.feature-matrix td:first-child {
-			width: 28%;
-			text-align: left;
-		}
+		table.feature-matrix td:first-child { width: 40%; text-align: left; }
 		table.feature-matrix th:not(:first-child),
-		table.feature-matrix td:not(:first-child) {
-			width: 14.4%;
-			text-align: center;
-		}
+		table.feature-matrix td:not(:first-child) { width: 20%; text-align: center; }
 
-		/* Visible thead — shows at the top of the table normally */
-		table.feature-matrix thead tr {
-			background: #2c3e50;
-			color: #fff;
-		}
+		table.feature-matrix thead tr { background: #2c3e50; color: #fff; }
 		table.feature-matrix thead th {
 			padding: 14px 10px;
 			font-size: 0.85em;
@@ -45,15 +30,9 @@
 			text-align: center;
 			border-right: 1px solid rgba(255,255,255,0.12);
 		}
-		table.feature-matrix thead th:first-child {
-			text-align: left;
-			padding-left: 14px;
-		}
-		table.feature-matrix thead th:last-child {
-			border-right: none;
-		}
+		table.feature-matrix thead th:first-child { text-align: left; padding-left: 14px; }
+		table.feature-matrix thead th:last-child { border-right: none; }
 
-		/* ── FLOATING STICKY HEADER ── appears when original header scrolls off screen */
 		#sticky-matrix-header {
 			display: none;
 			position: fixed;
@@ -63,9 +42,7 @@
 			color: #fff;
 			box-shadow: 0 2px 8px rgba(0,0,0,0.35);
 		}
-		#sticky-matrix-header.visible {
-			display: flex;
-		}
+		#sticky-matrix-header.visible { display: flex; }
 		#sticky-matrix-header .sh-cell {
 			padding: 13px 10px;
 			font-size: 0.82em;
@@ -79,15 +56,9 @@
 			white-space: nowrap;
 			box-sizing: border-box;
 		}
-		#sticky-matrix-header .sh-cell:first-child {
-			text-align: left;
-			padding-left: 14px;
-		}
-		#sticky-matrix-header .sh-cell:last-child {
-			border-right: none;
-		}
+		#sticky-matrix-header .sh-cell:first-child { text-align: left; padding-left: 14px; }
+		#sticky-matrix-header .sh-cell:last-child { border-right: none; }
 
-		/* Group header rows */
 		tr.feature-group-row td {
 			background: #2c3e50 !important;
 			color: #ffffff !important;
@@ -99,15 +70,12 @@
 			border-top: 3px solid #1a252f;
 		}
 
-		/* Feature name cells */
 		td.feature-name {
 			padding: 12px 14px;
 			font-size: 0.9em;
 			vertical-align: middle;
 			border-bottom: 1px solid #e8ecf0;
 		}
-
-		/* Tick cells */
 		td.feature-cell {
 			padding: 12px 10px;
 			text-align: center;
@@ -115,8 +83,6 @@
 			border-bottom: 1px solid #e8ecf0;
 			border-left: 1px solid #e8ecf0;
 		}
-
-		/* The tick icon */
 		td.feature-cell .feature-tick {
 			display: inline-block;
 			color: #27ae60;
@@ -124,21 +90,14 @@
 			line-height: 1;
 		}
 
-		/* Alternating row shading */
-		table.feature-matrix tbody tr:not(.feature-group-row):nth-child(even) td {
-			background: #f7f9fb;
-		}
-		table.feature-matrix tbody tr:not(.feature-group-row):hover td {
-			background: #eef4ff;
-		}
+		table.feature-matrix tbody tr:not(.feature-group-row):nth-child(even) td { background: #f7f9fb; }
+		table.feature-matrix tbody tr:not(.feature-group-row):hover td { background: #eef4ff; }
 
-		/* ── Help tip button ── */
 		.help-tip {
 			display: inline-flex;
 			align-items: center;
 			justify-content: center;
-			width: 17px;
-			height: 17px;
+			width: 17px; height: 17px;
 			border-radius: 50%;
 			background: #7f8c8d;
 			color: #fff;
@@ -151,11 +110,8 @@
 			flex-shrink: 0;
 			line-height: 1;
 		}
-		.help-tip:hover {
-			background: #2980b9;
-		}
+		.help-tip:hover { background: #2980b9; }
 
-		/* ── Tooltip ── */
 		.help-tooltip {
 			display: none;
 			position: absolute;
@@ -170,31 +126,24 @@
 			box-shadow: 0 4px 18px rgba(0,0,0,0.25);
 			pointer-events: none;
 		}
-		.help-tooltip.visible {
-			display: block;
-		}
+		.help-tooltip.visible { display: block; }
 	</style>
 </head>
 
 <body class="is-preload">
 	<div id="page-wrapper">
 
-		<!-- Floating sticky column header bar — shown when table header scrolls off screen -->
 		<div id="sticky-matrix-header">
 			<div class="sh-cell">Feature</div>
 			<div class="sh-cell">WBOS Essential</div>
-			<div class="sh-cell">WBOS Plus</div>
-			<div class="sh-cell">WBOS Professional</div>
 			<div class="sh-cell">WBOS Premium</div>
 			<div class="sh-cell">WBOS Enterprise</div>
 		</div>
 
-		<!-- Header -->
 		<header id="header">
 			<h1 id="logo">
 				<a href="index.html">
-					<img src="images/logixis.png"
-						 alt="WBOS by Logixis"
+					<img src="images/Logixis.png" alt="WBOS by Logixis"
 						 style="max-width: 90px; width: 100%; height: auto; display: block; margin: 0 auto;" />
 				</a>
 			</h1>
@@ -211,7 +160,6 @@
 			</nav>
 		</header>
 
-		<!-- Main -->
 		<div id="main" class="wrapper style1">
 			<div class="container">
 				<header class="major">
@@ -300,46 +248,19 @@
 							<tr>
 								<th>Feature</th>
 								<th>WBOS Essential</th>
-								<th>WBOS Plus</th>
-								<th>WBOS Professional</th>
 								<th>WBOS Premium</th>
 								<th>WBOS Enterprise</th>
 							</tr>
 						</thead>
 
 						<!-- GROUP 1: Operational Master Data -->
+						<!-- Sorted: Essential+Premium+Enterprise first, then Premium+Enterprise, then Enterprise only -->
 						<tbody>
-							<tr class="feature-group-row">
-								<td colspan="6">Operational Master Data</td>
-							</tr>
-							<tr>
-								<td class="feature-name">Organisation Branches <button type="button" class="help-tip" data-desc="Define and manage multiple organisational branches, allowing site-specific configuration and precise user access control so each user can operate only within their authorised branch locations.">?</button></td>
-								<td class="feature-cell"></td>
-								<td class="feature-cell"></td>
-								<td class="feature-cell"></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-							</tr>
-							<tr>
-								<td class="feature-name">State/Region Business Unit Structure <button type="button" class="help-tip" data-desc="Support multi-site organisations by grouping locations under regional business units, enabling centralised administration with shared customers, products and suppliers while maintaining site-level operational control.">?</button></td>
-								<td class="feature-cell"></td>
-								<td class="feature-cell"></td>
-								<td class="feature-cell"></td>
-								<td class="feature-cell"></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-							</tr>
-							<tr>
-								<td class="feature-name">Multi-User Permissions and Roles <button type="button" class="help-tip" data-desc="Granular access control enabling organisations to assign user accounts with role-based permissions across single or multiple sites, supporting secure, centralised oversight and efficient resource management.">?</button></td>
-								<td class="feature-cell"></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-							</tr>
+							<tr class="feature-group-row"><td colspan="4">Operational Master Data</td></tr>
+
+							<!-- E✓ P✓ Ent✓ -->
 							<tr>
 								<td class="feature-name">Bulk Material Registry and Stockpile Locations <button type="button" class="help-tip" data-desc="Centralised registry for defining bulk materials and their associated stockpile locations, including units of measure, pricing rules, and discount structures, with full lifecycle control for activation, updates, and deactivation.">?</button></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
@@ -349,21 +270,11 @@
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 							</tr>
+
+							<!-- E✗ P✓ Ent✓ -->
 							<tr>
-								<td class="feature-name">Customer Site Configuration <button type="button" class="help-tip" data-desc="Configure and maintain customer-specific site locations, enabling accurate allocation of deliveries, pickups, pricing rules, and reporting across multi-site customer operations.">?</button></td>
-								<td class="feature-cell"></td>
-								<td class="feature-cell"></td>
-								<td class="feature-cell"></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-							</tr>
-							<tr>
-								<td class="feature-name">Supplier Management <button type="button" class="help-tip" data-desc="Maintain a structured registry of approved suppliers, including the ability to add, update, or deactivate supplier records for purchasing, operational, or reporting purposes.">?</button></td>
-								<td class="feature-cell"></td>
-								<td class="feature-cell"></td>
+								<td class="feature-name">Multi-User Permissions and Roles <button type="button" class="help-tip" data-desc="Granular access control enabling organisations to assign user accounts with role-based permissions across single or multiple sites, supporting secure, centralised oversight and efficient resource management.">?</button></td>
 								<td class="feature-cell"></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
@@ -371,46 +282,64 @@
 							<tr>
 								<td class="feature-name">Driver Registry <button type="button" class="help-tip" data-desc="Centralised driver identity management that allows organisations to review registered drivers, approve access requests, and assign site-level permissions for completing weighbridge transactions through the WBOS Driver App.">?</button></td>
 								<td class="feature-cell"></td>
+								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
+								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
+							</tr>
+
+							<!-- E✗ P✗ Ent✓ -->
+							<tr>
+								<td class="feature-name">Organisation Branches <button type="button" class="help-tip" data-desc="Define and manage multiple organisational branches, allowing site-specific configuration and precise user access control so each user can operate only within their authorised branch locations.">?</button></td>
+								<td class="feature-cell"></td>
 								<td class="feature-cell"></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
+							</tr>
+							<tr>
+								<td class="feature-name">Customer Site Configuration <button type="button" class="help-tip" data-desc="Configure and maintain customer-specific site locations, enabling accurate allocation of deliveries, pickups, pricing rules, and reporting across multi-site customer operations.">?</button></td>
+								<td class="feature-cell"></td>
+								<td class="feature-cell"></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
+							</tr>
+							<tr>
+								<td class="feature-name">Supplier Management <button type="button" class="help-tip" data-desc="Maintain a structured registry of approved suppliers, including the ability to add, update, or deactivate supplier records for purchasing, operational, or reporting purposes.">?</button></td>
+								<td class="feature-cell"></td>
+								<td class="feature-cell"></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 							</tr>
 							<tr>
 								<td class="feature-name">Delivery Zone Configuration <button type="button" class="help-tip" data-desc="Define geographic delivery and pickup zones with configurable pricing rules, including flat-rate charges or distance-based (per-kilometre) calculations, enabling consistent and automated transaction pricing.">?</button></td>
 								<td class="feature-cell"></td>
 								<td class="feature-cell"></td>
-								<td class="feature-cell"></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
+							</tr>
+							<tr>
+								<td class="feature-name">State/Region Business Unit Structure <button type="button" class="help-tip" data-desc="Support multi-site organisations by grouping locations under regional business units, enabling centralised administration with shared customers, products and suppliers while maintaining site-level operational control.">?</button></td>
+								<td class="feature-cell"></td>
+								<td class="feature-cell"></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 							</tr>
 						</tbody>
 
 						<!-- GROUP 2: Pricing & Commercial Controls -->
 						<tbody>
-							<tr class="feature-group-row">
-								<td colspan="6">Pricing &amp; Commercial Controls</td>
-							</tr>
+							<tr class="feature-group-row"><td colspan="4">Pricing &amp; Commercial Controls</td></tr>
+
+							<!-- E✗ P✓ Ent✓ -->
 							<tr>
 								<td class="feature-name">Transaction Preset Workflow Builder <button type="button" class="help-tip" data-desc="Create standardised preset templates that streamline transaction generation by pre-defining customers, products, weights, pricing rules and workflow steps—allowing operators to produce consistent transactions in seconds.">?</button></td>
 								<td class="feature-cell"></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 							</tr>
 							<tr>
 								<td class="feature-name">Sales Order Management <button type="button" class="help-tip" data-desc="Manage customer purchase orders by linking each transaction to an active sales order, automatically tracking delivered quantities and remaining balances until the order is fully fulfilled.">?</button></td>
 								<td class="feature-cell"></td>
-								<td class="feature-cell"></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 							</tr>
+
+							<!-- E✗ P✗ Ent✓ -->
 							<tr>
 								<td class="feature-name">Pricing &amp; Discount Rules <button type="button" class="help-tip" data-desc="Configure structured pricing models and time-bound discount rules, allowing automated application of rates and incentives during transaction processing.">?</button></td>
-								<td class="feature-cell"></td>
-								<td class="feature-cell"></td>
 								<td class="feature-cell"></td>
 								<td class="feature-cell"></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
@@ -419,22 +348,20 @@
 
 						<!-- GROUP 3: Vehicle & Asset Management -->
 						<tbody>
-							<tr class="feature-group-row">
-								<td colspan="6">Vehicle &amp; Asset Management</td>
-							</tr>
+							<tr class="feature-group-row"><td colspan="4">Vehicle &amp; Asset Management</td></tr>
+
+							<!-- E✓ P✓ Ent✓ -->
 							<tr>
 								<td class="feature-name">Truck Management <button type="button" class="help-tip" data-desc="Maintain a centralised registry of vehicles, including truck type, registration details and tare information, ensuring accurate identification and compliance during weighbridge processing.">?</button></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 							</tr>
+
+							<!-- E✗ P✓ Ent✓ -->
 							<tr>
 								<td class="feature-name">Trailer Management <button type="button" class="help-tip" data-desc="Maintain a complete registry of trailer units, including registration details and key identifiers, supporting accurate linking and compliance across all vehicle combinations.">?</button></td>
 								<td class="feature-cell"></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 							</tr>
@@ -443,36 +370,30 @@
 								<td class="feature-cell"></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 							</tr>
 							<tr>
 								<td class="feature-name">Multi-Weighbridge Support <button type="button" class="help-tip" data-desc="Manage and synchronise operations across multiple weighbridges within a single site or distributed network, ensuring unified workflows, consistent data capture and centralised visibility.">?</button></td>
 								<td class="feature-cell"></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 							</tr>
+
+							<!-- E✗ P✗ Ent✓ -->
 							<tr>
 								<td class="feature-name">Carrier Management <button type="button" class="help-tip" data-desc="Maintain a structured registry of transport carriers, enabling accurate linkage of trucks, drivers and freight movements across all transactions.">?</button></td>
 								<td class="feature-cell"></td>
 								<td class="feature-cell"></td>
-								<td class="feature-cell"></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 							</tr>
 						</tbody>
 
 						<!-- GROUP 4: Reporting & Analytics -->
 						<tbody>
-							<tr class="feature-group-row">
-								<td colspan="6">Reporting &amp; Analytics</td>
-							</tr>
+							<tr class="feature-group-row"><td colspan="4">Reporting &amp; Analytics</td></tr>
+
+							<!-- E✓ P✓ Ent✓ -->
 							<tr>
 								<td class="feature-name">Product Reporting <button type="button" class="help-tip" data-desc="Generate detailed summaries of product movements, including volumes, weights and material categories, to support operational oversight and regulatory reporting.">?</button></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
@@ -482,60 +403,52 @@
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 							</tr>
+
+							<!-- E✗ P✓ Ent✓ -->
 							<tr>
 								<td class="feature-name">Truck &amp; Vehicle Reporting <button type="button" class="help-tip" data-desc="Monitor vehicle activity across all sites, including trip frequency, compliance checks, axle-group outcomes and tare expiry status, helping improve operational visibility and Chain of Responsibility oversight.">?</button></td>
 								<td class="feature-cell"></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 							</tr>
 							<tr>
 								<td class="feature-name">Advanced Report Builder <button type="button" class="help-tip" data-desc="Create customised operational, financial and compliance reports using flexible filters and export formats, enabling deeper analysis across products, customers, vehicles and site activity.">?</button></td>
 								<td class="feature-cell"></td>
-								<td class="feature-cell"></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 							</tr>
+
+							<!-- E✗ P✗ Ent✓ -->
 							<tr>
 								<td class="feature-name">Carrier Reporting <button type="button" class="help-tip" data-desc="Generate structured reports summarising carrier performance, vehicle movements, weights and transaction history to support contract management and operational insight.">?</button></td>
 								<td class="feature-cell"></td>
 								<td class="feature-cell"></td>
-								<td class="feature-cell"></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 							</tr>
 							<tr>
 								<td class="feature-name">Site-Level Reporting <button type="button" class="help-tip" data-desc="Access detailed operational reports for each site, including transaction volumes, material movements and activity breakdowns, enabling clear performance comparison across multi-site networks.">?</button></td>
 								<td class="feature-cell"></td>
 								<td class="feature-cell"></td>
-								<td class="feature-cell"></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 							</tr>
 						</tbody>
 
 						<!-- GROUP 5: Integrations & Applications -->
 						<tbody>
-							<tr class="feature-group-row">
-								<td colspan="6">Integrations &amp; Applications</td>
-							</tr>
+							<tr class="feature-group-row"><td colspan="4">Integrations &amp; Applications</td></tr>
+
+							<!-- E✗ P✓ Ent✓ -->
 							<tr>
 								<td class="feature-name">Driver Mobile App (iOS &amp; Android) <button type="button" class="help-tip" data-desc="A secure, guided mobile interface allowing drivers to receive jobs, complete weighbridge workflows, capture required data and stay connected with your sites — all from within the cab.">?</button></td>
 								<td class="feature-cell"></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
-								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
 							</tr>
+
+							<!-- E✗ P✗ Ent✓ -->
 							<tr>
 								<td class="feature-name">API Integration Framework <button type="button" class="help-tip" data-desc="A robust integration layer enabling seamless data exchange between WBOS and your existing ERP, financial, logistics, compliance and reporting systems.">?</button></td>
-								<td class="feature-cell"></td>
-								<td class="feature-cell"></td>
 								<td class="feature-cell"></td>
 								<td class="feature-cell"></td>
 								<td class="feature-cell"><span class="icon solid fa-check feature-tick"></span></td>
@@ -546,7 +459,6 @@
 			</div>
 		</section>
 
-		<!-- Footer -->
 		<footer id="footer">
 			<ul class="copyright">
 				<li>&copy; 2025 Logixis. All rights reserved</li>
@@ -555,7 +467,6 @@
 
 	</div>
 
-	<!-- Scripts -->
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/jquery.scrolly.min.js"></script>
 	<script src="assets/js/jquery.dropotron.min.js"></script>
@@ -568,7 +479,6 @@
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
 
-			// ── Sticky header: appears when the real thead scrolls off the top ──
 			var stickyBar = document.getElementById('sticky-matrix-header');
 			var table     = document.getElementById('feature-matrix');
 			var thead     = table ? table.querySelector('thead') : null;
@@ -578,12 +488,8 @@
 				if (!table || !stickyBar) return;
 				var tableRect = table.getBoundingClientRect();
 				var scrollX   = window.scrollX || window.pageXOffset;
-
-				// Position bar exactly over the table horizontally
 				stickyBar.style.left  = (tableRect.left + scrollX) + 'px';
 				stickyBar.style.width = tableRect.width + 'px';
-
-				// Match each cell width to the real <th>
 				var ths = table.querySelectorAll('thead th');
 				ths.forEach(function (th, i) {
 					if (cells[i]) {
@@ -598,9 +504,6 @@
 				if (!table || !stickyBar || !thead) return;
 				var theadRect = thead.getBoundingClientRect();
 				var tableRect = table.getBoundingClientRect();
-
-				// Show sticky bar when the real header row has scrolled off the top
-				// AND the table bottom is still in view
 				if (theadRect.bottom < 0 && tableRect.bottom > 50) {
 					alignStickyHeader();
 					stickyBar.classList.add('visible');
@@ -610,22 +513,12 @@
 			}
 
 			window.addEventListener('scroll', updateStickyHeader);
-			window.addEventListener('resize', function () {
-				alignStickyHeader();
-				updateStickyHeader();
-			});
+			window.addEventListener('resize', function () { alignStickyHeader(); updateStickyHeader(); });
+			setTimeout(function () { alignStickyHeader(); updateStickyHeader(); }, 200);
 
-			// Run once after layout settles
-			setTimeout(function () {
-				alignStickyHeader();
-				updateStickyHeader();
-			}, 200);
-
-			// ── Tooltip logic ──
 			var tooltip = document.createElement('div');
 			tooltip.className = 'help-tooltip';
 			document.body.appendChild(tooltip);
-
 			var currentBtn = null;
 
 			document.querySelectorAll('.help-tip').forEach(function (btn) {
@@ -633,22 +526,17 @@
 					e.stopPropagation();
 					var desc = btn.getAttribute('data-desc') || '';
 					if (!desc) return;
-
 					if (tooltip.classList.contains('visible') && currentBtn === btn) {
 						tooltip.classList.remove('visible');
 						currentBtn = null;
 						return;
 					}
-
 					tooltip.textContent = desc;
-
 					var rect    = btn.getBoundingClientRect();
 					var scrollY = window.scrollY || window.pageYOffset;
 					var scrollX = window.scrollX || window.pageXOffset;
-
 					tooltip.style.top  = (rect.top  + scrollY - 6)  + 'px';
 					tooltip.style.left = (rect.right + scrollX + 14) + 'px';
-
 					tooltip.classList.add('visible');
 					currentBtn = btn;
 				});
@@ -663,4 +551,5 @@
 
 </body>
 </html>
+
 
