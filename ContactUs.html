@@ -176,16 +176,16 @@
 					});
 
 					if (response.ok) {
-						msgBox.textContent = 'âœ“ Thank you! Your message has been sent. We will be in touch shortly.';
+						msgBox.textContent = 'Thank you! Your message has been sent. We will be in touch shortly.';
 						msgBox.className = 'form-message success visible';
 						document.getElementById('contact-form').reset();
 					} else {
 						var data = await response.json();
-						msgBox.textContent = 'âœ— ' + (data.error || 'Something went wrong. Please try again.');
+						msgBox.textContent = (data.error || 'Something went wrong. Please try again.');
 						msgBox.className = 'form-message error visible';
 					}
 				} catch (err) {
-					msgBox.textContent = 'âœ— Could not connect. Please check your connection and try again.';
+					msgBox.textContent = 'Could not connect. Please check your connection and try again.';
 					msgBox.className = 'form-message error visible';
 				}
 
