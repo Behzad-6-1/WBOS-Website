@@ -79,17 +79,17 @@
 									<input type="text" name="company" id="company" placeholder="Company name" />
 								</div>
 								<div class="col-6 col-12-xsmall">
-									<input type="text" name="name" id="name" placeholder="First and last name" required />
+									<input type="text" name="name" id="name" placeholder="First and last name *" required />
 								</div>
 								<div class="col-6 col-12-xsmall">
-									<input type="text" name="phone" id="phone" placeholder="Phone number" />
+									<input type="text" name="phone" id="phone" placeholder="Phone number *" required />
 								</div>
 								<div class="col-6 col-12-xsmall">
-									<input type="email" name="email" id="email" placeholder="Email" required />
+									<input type="email" name="email" id="email" placeholder="Email address (e.g. name@company.com) *" required />
 								</div>
 								<div class="col-6">
-									<select name="state" id="state">
-										<option value="">- State -</option>
+									<select name="state" id="state" required>
+										<option value="">- State * -</option>
 										<option value="ACT">ACT</option>
 										<option value="NSW">NSW</option>
 										<option value="NT">NT</option>
@@ -101,8 +101,8 @@
 									</select>
 								</div>
 								<div class="col-6">
-									<select name="enquiry" id="enquiry">
-										<option value="">- Enquiry Type -</option>
+									<select name="enquiry" id="enquiry" required>
+										<option value="">- Enquiry Type * -</option>
 										<option value="Request a Demo">Request a Demo</option>
 										<option value="Pricing & Commercial Enquiry">Pricing &amp; Commercial Enquiry</option>
 										<option value="Technical or Integration Question">Technical or Integration Question</option>
@@ -112,7 +112,7 @@
 									</select>
 								</div>
 								<div class="col-12">
-									<textarea name="message" id="message" placeholder="Enter your message" rows="6" required></textarea>
+									<textarea name="message" id="message" placeholder="Enter your message *" rows="6" required></textarea>
 								</div>
 								<div class="col-12">
 									<ul class="actions">
@@ -176,16 +176,16 @@
 					});
 
 					if (response.ok) {
-						msgBox.textContent = '✓ Thank you! Your message has been sent. We will be in touch shortly.';
+						msgBox.textContent = 'âœ“ Thank you! Your message has been sent. We will be in touch shortly.';
 						msgBox.className = 'form-message success visible';
 						document.getElementById('contact-form').reset();
 					} else {
 						var data = await response.json();
-						msgBox.textContent = '✗ ' + (data.error || 'Something went wrong. Please try again.');
+						msgBox.textContent = 'âœ— ' + (data.error || 'Something went wrong. Please try again.');
 						msgBox.className = 'form-message error visible';
 					}
 				} catch (err) {
-					msgBox.textContent = '✗ Could not connect. Please check your connection and try again.';
+					msgBox.textContent = 'âœ— Could not connect. Please check your connection and try again.';
 					msgBox.className = 'form-message error visible';
 				}
 
