@@ -172,12 +172,13 @@
 							<h2>Stay in sync with WBOS&trade;</h2>
 							<p>Get notified as we roll out new modules, compliance features and platform upgrades.</p>
 						</header>
-						<form method="post" action="#" class="cta">
+						<form id="newsletter-form" class="cta">
 							<div class="row gtr-uniform gtr-50">
-								<div class="col-8 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Your email address" /></div>
-								<div class="col-4 col-12-xsmall"><input type="submit" value="Sign up" class="button" /></div>
+								<div class="col-8 col-12-xsmall"><input type="email" name="email" id="newsletter-email" placeholder="Your email address" required /></div>
+								<div class="col-4 col-12-xsmall"><input type="submit" id="newsletter-btn" value="Sign up" class="button" /></div>
 							</div>
 						</form>
+						<p id="newsletter-message" style="display:none; margin-top:16px; font-weight:600;"></p>
 					</div>
 				</section>
 
@@ -199,6 +200,47 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+
+		<script>
+			document.getElementById('newsletter-form').addEventListener('submit', async function (e) {
+				e.preventDefault();
+
+				var btn     = document.getElementById('newsletter-btn');
+				var msgEl   = document.getElementById('newsletter-message');
+				var email   = document.getElementById('newsletter-email').value.trim();
+
+				btn.disabled = true;
+				btn.value    = 'Sending...';
+				msgEl.style.display = 'none';
+				msgEl.textContent   = '';
+
+				try {
+					var response = await fetch('/api/sendmail', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({ type: 'newsletter', email: email })
+					});
+
+					if (response.ok) {
+						msgEl.textContent    = 'Thank you for subscribing! Check your inbox for a confirmation email.';
+						msgEl.style.color    = '#fff';
+						msgEl.style.display  = 'block';
+						document.getElementById('newsletter-form').reset();
+					} else {
+						msgEl.textContent   = 'Something went wrong. Please try again.';
+						msgEl.style.color   = '#f5c6cb';
+						msgEl.style.display = 'block';
+					}
+				} catch (err) {
+					msgEl.textContent   = 'Could not connect. Please check your connection and try again.';
+					msgEl.style.color   = '#f5c6cb';
+					msgEl.style.display = 'block';
+				}
+
+				btn.disabled = false;
+				btn.value    = 'Sign up';
+			});
+		</script>
 
 	</body>
 </html>
