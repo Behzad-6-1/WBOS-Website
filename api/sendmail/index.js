@@ -62,7 +62,7 @@ module.exports = async function (context, req) {
         };
 
         const confirmationMail = {
-            from: `"WBOS by Logixis" <${process.env.SMTP_USER}>`,
+            from: `"WBOS by LogixIS" <${process.env.SMTP_USER}>`,
             to: email,
             subject: 'Thanks for subscribing to WBOS updates',
             html: `
@@ -154,9 +154,9 @@ module.exports = async function (context, req) {
     };
 
     const confirmationMail = {
-        from: `"WBOS by Logixis" <${process.env.SMTP_USER}>`,
+        from: `"WBOS by LogixIS" <${process.env.SMTP_USER}>`,
         to: email,
-        subject: `Thank you for your enquiry – WBOS by Logixis`,
+        subject: `Thank you for your enquiry – WBOS by LogixIS`,
         html: `
             <div style="font-family:Arial,sans-serif; max-width:600px; margin:0 auto;">
                 <h2 style="color:#2c3e50;">Thank you for your enquiry, ${name}!</h2>
