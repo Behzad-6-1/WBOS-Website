@@ -81,14 +81,21 @@ module.exports = async function (context, req) {
 
         try {
             await transporter.sendMail(internalMail);
-            await transporter.sendMail(confirmationMail);
-            context.res.status = 200;
-            context.res.body = JSON.stringify({ success: true });
         } catch (error) {
-            context.log.error('Newsletter email error:', error);
-            context.res.status = 500;
-            context.res.body = JSON.stringify({ error: 'Failed to send email.', detail: error.message });
+            context.log.error('Newsletter internal mail error:', error);
         }
+
+        try {
+            await transporter.sendMail(confirmationMail);
+        } catch (error) {
+            context.log.error('Newsletter confirmation mail error:', error);
+            context.res.status = 500;
+            context.res.body = JSON.stringify({ error: 'Failed to send confirmation email.', detail: error.message });
+            return;
+        }
+
+        context.res.status = 200;
+        context.res.body = JSON.stringify({ success: true });
         return;
     }
 
